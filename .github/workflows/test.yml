@@ -39,7 +39,7 @@ jobs:
 
           git clone https://github.com/rems-project/coq-sail
           cd coq-sail/
-          git checkout 5150697
+          git checkout f749632
           opam pin .
           cd ..
 

@@ -152,36 +152,34 @@ Inductive Access_kind {arch_ak : Type} :=
   | AK_arch : arch_ak -> Access_kind.
 Arguments Access_kind : clear implicits.
 
-Record Mem_read_request {n : Z} {vasize : Z} {pa : Type} {ts : Type} {arch_ak : Type}`{ArithFact (n >?
-  0)} :=
+Record Mem_read_request {n : Z} {vasize : Z} {pa : Type} {ts : Type} {arch_ak : Type} :=
   { Mem_read_request_access_kind : Access_kind arch_ak;
     Mem_read_request_va : option (bits vasize);
     Mem_read_request_pa : pa;
     Mem_read_request_translation : ts;
     Mem_read_request_size : Z;
     Mem_read_request_tag : bool; }.
-Arguments Mem_read_request _ _ _ _ _ {_}.
+Arguments Mem_read_request _ _ _ _ _.
 Notation "{[ r 'with' 'Mem_read_request_access_kind' := e ]}" :=
-  match r with Build_Mem_read_request _ _ _ _ _ _ _ f1 f2 f3 f4 f5 =>
+  match r with Build_Mem_read_request _ _ _ _ _ _ f1 f2 f3 f4 f5 =>
     Build_Mem_read_request _ _ _ _ _ e f1 f2 f3 f4 f5 end.
 Notation "{[ r 'with' 'Mem_read_request_va' := e ]}" :=
-  match r with Build_Mem_read_request _ _ _ _ _ _ f0 _ f2 f3 f4 f5 =>
+  match r with Build_Mem_read_request _ _ _ _ _ f0 _ f2 f3 f4 f5 =>
     Build_Mem_read_request _ _ _ _ _ f0 e f2 f3 f4 f5 end.
 Notation "{[ r 'with' 'Mem_read_request_pa' := e ]}" :=
-  match r with Build_Mem_read_request _ _ _ _ _ _ f0 f1 _ f3 f4 f5 =>
+  match r with Build_Mem_read_request _ _ _ _ _ f0 f1 _ f3 f4 f5 =>
     Build_Mem_read_request _ _ _ _ _ f0 f1 e f3 f4 f5 end.
 Notation "{[ r 'with' 'Mem_read_request_translation' := e ]}" :=
-  match r with Build_Mem_read_request _ _ _ _ _ _ f0 f1 f2 _ f4 f5 =>
+  match r with Build_Mem_read_request _ _ _ _ _ f0 f1 f2 _ f4 f5 =>
     Build_Mem_read_request _ _ _ _ _ f0 f1 f2 e f4 f5 end.
 Notation "{[ r 'with' 'Mem_read_request_size' := e ]}" :=
-  match r with Build_Mem_read_request _ _ _ _ _ _ f0 f1 f2 f3 _ f5 =>
+  match r with Build_Mem_read_request _ _ _ _ _ f0 f1 f2 f3 _ f5 =>
     Build_Mem_read_request _ _ _ _ _ f0 f1 f2 f3 e f5 end.
 Notation "{[ r 'with' 'Mem_read_request_tag' := e ]}" :=
-  match r with Build_Mem_read_request _ _ _ _ _ _ f0 f1 f2 f3 f4 _ =>
+  match r with Build_Mem_read_request _ _ _ _ _ f0 f1 f2 f3 f4 _ =>
     Build_Mem_read_request _ _ _ _ _ f0 f1 f2 f3 f4 e end.
 
-Record Mem_write_request {n : Z} {vasize : Z} {pa : Type} {ts : Type} {arch_ak : Type}`{ArithFact (n >?
-  0)} :=
+Record Mem_write_request {n : Z} {vasize : Z} {pa : Type} {ts : Type} {arch_ak : Type} :=
   { Mem_write_request_access_kind : Access_kind arch_ak;
     Mem_write_request_va : option (bits vasize);
     Mem_write_request_pa : pa;
@@ -189,27 +187,27 @@ Record Mem_write_request {n : Z} {vasize : Z} {pa : Type} {ts : Type} {arch_ak :
     Mem_write_request_size : Z;
     Mem_write_request_value : option (bits (8 * n));
     Mem_write_request_tag : option bool; }.
-Arguments Mem_write_request _ _ _ _ _ {_}.
+Arguments Mem_write_request _ _ _ _ _.
 Notation "{[ r 'with' 'Mem_write_request_access_kind' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 =>
+  match r with Build_Mem_write_request _ _ _ _ _ _ f1 f2 f3 f4 f5 f6 =>
     Build_Mem_write_request _ _ _ _ _ e f1 f2 f3 f4 f5 f6 end.
 Notation "{[ r 'with' 'Mem_write_request_va' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ f0 _ f2 f3 f4 f5 f6 =>
+  match r with Build_Mem_write_request _ _ _ _ _ f0 _ f2 f3 f4 f5 f6 =>
     Build_Mem_write_request _ _ _ _ _ f0 e f2 f3 f4 f5 f6 end.
 Notation "{[ r 'with' 'Mem_write_request_pa' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ f0 f1 _ f3 f4 f5 f6 =>
+  match r with Build_Mem_write_request _ _ _ _ _ f0 f1 _ f3 f4 f5 f6 =>
     Build_Mem_write_request _ _ _ _ _ f0 f1 e f3 f4 f5 f6 end.
 Notation "{[ r 'with' 'Mem_write_request_translation' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ f0 f1 f2 _ f4 f5 f6 =>
+  match r with Build_Mem_write_request _ _ _ _ _ f0 f1 f2 _ f4 f5 f6 =>
     Build_Mem_write_request _ _ _ _ _ f0 f1 f2 e f4 f5 f6 end.
 Notation "{[ r 'with' 'Mem_write_request_size' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ f0 f1 f2 f3 _ f5 f6 =>
+  match r with Build_Mem_write_request _ _ _ _ _ f0 f1 f2 f3 _ f5 f6 =>
     Build_Mem_write_request _ _ _ _ _ f0 f1 f2 f3 e f5 f6 end.
 Notation "{[ r 'with' 'Mem_write_request_value' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ f0 f1 f2 f3 f4 _ f6 =>
+  match r with Build_Mem_write_request _ _ _ _ _ f0 f1 f2 f3 f4 _ f6 =>
     Build_Mem_write_request _ _ _ _ _ f0 f1 f2 f3 f4 e f6 end.
 Notation "{[ r 'with' 'Mem_write_request_tag' := e ]}" :=
-  match r with Build_Mem_write_request _ _ _ _ _ _ f0 f1 f2 f3 f4 f5 _ =>
+  match r with Build_Mem_write_request _ _ _ _ _ f0 f1 f2 f3 f4 f5 _ =>
     Build_Mem_write_request _ _ _ _ _ f0 f1 f2 f3 f4 f5 e end.
 
 Record Mem_write_announce_address {n : Z} {vasize : Z} {pa : Type} :=
@@ -1029,7 +1027,7 @@ Scheme Equality for MemBarrierOp.
 forall (x y : MemBarrierOp), Decidable (x = y) :=
 Decidable_eq_from_dec MemBarrierOp_eq_dec.
 
-Definition Level  : Type := {rangevar : Z & ArithFact ((-1 <=? rangevar) && (rangevar <=? 4))}.
+Definition Level  : Type := Z.
 
 Record TranslationInfo  :=
   { TranslationInfo_regime : Regime;
@@ -1192,9 +1190,9 @@ Definition set_regval (reg_name : string) (v : register_value) (s : regstate) : 
   None.
 
 Definition register_accessors := (get_regval, set_regval).
-
-
+(*
 Definition MR a r := monadR register_value a r unit.
 Definition M a := monad register_value a unit.
 Definition returnM {A:Type} := @returnm register_value A unit.
 Definition returnR {A:Type} (R:Type) := @returnm register_value A (R + unit).
+*)

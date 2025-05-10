@@ -32,7 +32,10 @@ jobs:
           eval $(opam env --switch=default)
 
           opam repo add coq-released https://coq.inria.fr/opam/released
-          opam install . --deps-only
+          opam repo add iris-dev https://gitlab.mpi-sws.org/iris/opam.git
+
+          opam pin coq-iris 4.2.0
+          opam install coq-iris coq-hammer-tactics coq-record-update
 
           git clone https://github.com/rems-project/coq-sail
           cd coq-sail/

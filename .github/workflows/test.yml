@@ -22,20 +22,32 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: cache deps
+        uses: actions/cache@v4
+        id: deps
+        with:
+          path: |
+            /usr/local/bin/opam
+            ~/.opam
+          key: ${{ matrix.os }}-deps
+
       - name: setup opam
+        if: steps.deps.outputs.cache-hit != 'true'
         run: |
           bash -c "echo | sh <(curl -L https://opam.ocaml.org/install.sh)"
           opam init --disable-sandboxing
 
       - name: build AxSL dependencies
+        if: steps.deps.outputs.cache-hit != 'true'
         run: |
           eval $(opam env --switch=default)
 
           opam repo add coq-released https://coq.inria.fr/opam/released
           opam repo add iris-dev https://gitlab.mpi-sws.org/iris/opam.git
 
+          opam install coq-hammer-tactics
           opam pin coq-iris 4.3.0
-          opam install coq-iris coq-hammer-tactics coq-record-update
+          opam install coq-record-update
 
           git clone https://github.com/rems-project/coq-sail
           cd coq-sail/

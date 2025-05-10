@@ -314,8 +314,18 @@ Qed.
 Lemma bv_to_word_to_bv' {n} (b : bv n) :
   b |> bv_to_word |> word_to_bv |> transport bv N2Nat.id = b.
 Proof.
-  unfold word_to_bv. unfold bv_to_word.
-  hauto lq:on db:bv,word,arith use:bv_unsigned_in_range.
+  unfold word_to_bv.
+  unfold bv_to_word.
+  bv_simplify.
+  f_equal.
+  rewrite uwordToZ_ZToWord;
+    [reflexivity | ].
+  destruct (bv_unsigned_in_range n b) as [le lt].
+  split;
+    [exact le | ].
+  unfold bv_modulus in lt.
+  rewrite N_nat_Z.
+  exact lt.
 Qed.
 #[global] Hint Rewrite @bv_to_word_to_bv' : bv.
 
@@ -533,7 +543,14 @@ Lemma uwordToZ_bv_to_word n (b : bv n):
   uwordToZ (bv_to_word b) = bv_unsigned b.
 Proof.
   unfold bv_to_word.
-  hauto lq:on db:bv,word,arith use:bv_unsigned_in_range.
+  rewrite uwordToZ_ZToWord;
+    [reflexivity | ].
+  destruct (bv_unsigned_in_range n b) as [le lt].
+  split;
+    [exact le | ].
+  unfold bv_modulus in lt.
+  rewrite N_nat_Z.
+  exact lt.
 Qed.
 #[global] Hint Rewrite uwordToZ_bv_to_word : bv.
 

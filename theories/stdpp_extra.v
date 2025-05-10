@@ -101,7 +101,7 @@ Section list_subset_ind.
     done. apply lt_wf.
     intros ? ? [? [? Hp]].
     rewrite Hp.
-    rewrite app_length. rewrite cons_length.
+    rewrite length_app. rewrite length_cons.
     lia.
   Qed.
 
@@ -132,7 +132,7 @@ Section prefix_ind.
     apply lt_wf.
     intros ? ? [].
     rewrite H.
-    rewrite app_length.
+    rewrite length_app.
     simpl. lia.
   Qed.
 

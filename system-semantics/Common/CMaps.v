@@ -234,5 +234,5 @@ Program Definition map_fold_cind `{FinMap K M} A B (m : M A)
       P ∅ b /\
         (forall i x m r, m !! i = None -> P m r -> P (<[i:=x]> m) (f i x r) )
   |}.
-Solve All Obligations with intros; apply (map_fold_ind (fun x y => P y x)); hauto.
+Solve All Obligations with intros; apply (map_fold_weak_ind (fun x y => P y x)); hauto.
 Arguments map_fold_cind : clear implicits.

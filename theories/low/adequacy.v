@@ -147,7 +147,7 @@ Section adequacy.
       iFrame "Hea_wf".
       rewrite big_sepL2_snoc. rewrite Hlen_eq. iFrame.
       rewrite -Hna_dom. iDestruct "Hna_full" as %Hna_full.
-      iPureIntro. rewrite app_length /=. rewrite seq_app /=.
+      iPureIntro. rewrite length_app /=. rewrite seq_app /=.
       rewrite foldl_snoc.
       rewrite (LThreadStep.eids_between_full gs (idx_to_tid (length σs_pre)) σ σ');try eassumption.
       rewrite -Hna_full. rewrite -Hlen_eq. set_solver +.
@@ -256,7 +256,7 @@ Section adequacy.
     destruct Hσs_pre as [σ ->].
     iDestruct (big_sepL2_snoc_inv_l with "Hlifting") as (Φ Φs_pre) "([-> Hpl] & Hlifting)".
     iDestruct ("Hpl" with "Hannot") as ">[Hannot Hpl]".
-    rewrite big_sepL2_snoc. rewrite app_length. simpl.
+    rewrite big_sepL2_snoc. rewrite length_app. simpl.
     assert ((length σs_pre + 1) = S (length σs_pre))%nat as -> by lia.
     rewrite seq_S /=. rewrite big_sepL_snoc.
     iDestruct "R" as "[R Rσ]".
